@@ -1,0 +1,36 @@
+services:
+  php:
+    image: farmos/farmos:2.x
+    default: true
+    commands:
+      
+      # Commands that set up the basic preview infrastructure.
+      init: |
+        set -eux
+      
+      # Commands that import files, databases, or other assets.
+      # When an existing preview is refreshed, the build workflow starts
+      # here, skipping the build step.
+      update: |
+        set -eux
+
+        # Create a files directory.
+        mkdir -p /opt/drupal/web/sites/default/files
+        
+        # Drush site-install to a sqlite file.
+        drush site:install --yes --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=admin farm farm.modules='all'
+
+        # Update ownership of files so www-data has access to db.
+        chgrp -R www-data /opt/drupal/web/sites/default/files
+        chmod 2775 /opt/drupal/web/sites/default/files
+        chmod -R g+w /opt/drupal/web/sites/default/files
+      
+      # Commands that build the site. When a preview is built from a base
+      # preview, the build workflow starts here, skipping the init and 
+      # update steps.
+      build: |
+        set -eux
+
+        # Clear the cache.
+        cd /opt/drupal
+        vendor/bin/drush cache:rebuild
