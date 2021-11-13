@@ -36,6 +36,8 @@ services:
       build: |
         set -eux
 
+        # Create a login link for the manager user.
+        drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard
+
         # Clear the cache.
-        cd /opt/drupal
-        vendor/bin/drush cache:rebuild
+        drush cache:rebuild
