@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="form-wrapper">
+    <div id="form-wrapper" v-if="!submitted">
 
       <form @submit.prevent="onSubmit">
         <h3>Demo farmOS!</h3>
@@ -28,13 +28,17 @@
     </div>
 
     <div id="preview-wrapper" v-if="submitted">
+      <template v-if="previewLoginLink">
+        <h3>Your demo of farmOS is ready!</h3>
+        <h4>View the dashboard <a :href="previewLoginLink" target="_blank">here</a> - happy record keeping!</h4>
+      </template>
+      
       <h4>
         Status: 
         <span v-if="!previewInfo.state">Creating preview...</span>
         <span v-if="!!previewInfo.state">{{ this.previewInfo.state }}</span>
-        <span v-if="previewInfo.state == 'ready'"> - happy record keeping!</span>
-      </h4>
-      
+      </h4> 
+
       <h4 v-if="!!previewId">
         Preview ID: {{ this.previewId }}
       </h4>
@@ -80,6 +84,7 @@ export default {
         state: '',
         url: '',
       },
+      previewLoginLink: '',
     }
   },
   methods: {
@@ -102,7 +107,10 @@ export default {
       .then(data => {
         console.log(data);
         this.previewId = data.preview;
-        this.updatePreviewUntilReady();
+        this.updatePreviewUntilReady()
+        .then(() => {
+          this.updatePreviewLoginLink();
+        })
       })
       .catch(error => alert(error));
     },
@@ -128,6 +136,24 @@ export default {
         body: JSON.stringify(payload),
       })
       .then(response => response.json())
+      .catch(error => alert(error));
+    },
+    async updatePreviewLoginLink() {
+      this.previewLoginLink = await this.fetchPreviewLoginLink(this.previewId);
+    },
+    fetchPreviewLoginLink(previewId) {
+      console.log('fetching preview login link');
+      const payload = {previewId};
+      return fetch ('.netlify/functions/get-preview-login-link', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        body: JSON.stringify(payload),
+      })
+      .then(response => response.json())
+      .then(data => data.loginLink)
       .catch(error => alert(error));
     }
   }
