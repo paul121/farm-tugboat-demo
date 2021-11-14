@@ -5,7 +5,7 @@
       <form @submit.prevent="onSubmit">
         <h3>Demo farmOS!</h3>
 
-        <h4>Select a version:</h4>
+        <h4>Select a demo:</h4>
         <div class="radio-wrapper">
           <template v-for="option in basePreviewOptions" :key="option.id">
             <input
@@ -18,6 +18,7 @@
             <label :for="'base-' + option.id">
               <span class="label">{{ option.label }}</span>
               <span class="disabled" v-if="!option.enabled"> (coming soon)</span>
+              <span class="description">: {{ option.description }}</span>
             </label>
             <br />
           </template>
@@ -62,20 +63,20 @@ export default {
         {
           id: '618f7136908ae14527591948',
           enabled: true,
-          label: '2.x-dev',
-          description: 'Barebones farmOS demo.',
+          label: '2.x',
+          description: 'Fresh farmOS 2.0 install.',
         },
         {
           id: '0',
           enabled: false,
           label: 'Market farm',
-          description: 'Diversified vegetable market farm.',
+          description: 'An example of the crop plan.',
         },
         {
           id: '1',
           enabled: false,
-          label: 'Rotational grazing',
-          description: 'Grazing plan demo.',
+          label: 'Ranch',
+          description: 'An example of the grazing plan.',
         },
       ],
       baseId: '',
@@ -168,7 +169,7 @@ h4 {
 
 form {
   margin: auto;
-  max-width: 25%;
+  max-width: 35%;
 }
 
 form .radio-wrapper {
