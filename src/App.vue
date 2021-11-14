@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img class="logo" alt="farmOS logo" src="./assets/farmOS-logo.png">
   <CreatePreview/>
 </template>
 
@@ -22,5 +22,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+img.logo {
+  margin: auto;
+  width: 50%;
 }
 </style>
