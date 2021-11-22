@@ -18,12 +18,12 @@ services:
         mkdir -p /opt/drupal/web/sites/default/files
         
         # Drush site-install to a sqlite file.
-        drush site:install --yes --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=admin farm farm.modules='all'
+        drush site:install --yes --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin farm farm.modules='all'
 
         # Create test users with manager, worker and viewer roles.
-        drush user-create manager --password manager && drush user-add-role farm_manager manager
-        drush user-create worker --password worker && drush user-add-role farm_worker worker
-        drush user-create viewer --password viewer && drush user-add-role farm_viewer viewer
+        drush user-create manager && drush user-add-role farm_manager manager
+        drush user-create worker && drush user-add-role farm_worker worker
+        drush user-create viewer && drush user-add-role farm_viewer viewer
 
         # Update ownership of files so www-data has access to db.
         chgrp -R www-data /opt/drupal/web/sites/default/files
