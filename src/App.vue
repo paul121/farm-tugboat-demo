@@ -1,16 +1,16 @@
 <template>
+  <div id="nav">
+    <router-link to="/" class="ui-section-header--nav-link">Home</router-link> |
+    <a href="https://docs.farmos.org" role="link" aria-label="#" class="ui-section-header--nav-link">Documentation</a> |
+    <router-link to="/about" class="ui-section-header--nav-link">About</router-link>
+  </div>
   <img class="logo" alt="farmOS logo" src="./assets/farmOS-logo.png">
-  <CreatePreview/>
+  <router-view/>
 </template>
 
 <script>
-import CreatePreview from './components/CreatePreview.vue'
-
 export default {
   name: 'App',
-  components: {
-    CreatePreview,
-  }
 }
 </script>
 
@@ -21,11 +21,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
 img.logo {
   margin: auto;
-  width: 50%;
+  height: 50px;
 }
 </style>
