@@ -8,7 +8,7 @@
       
       <h4> 
         <span v-if="previewInfo.state != 'ready'">Status: {{ this.previewInfo.state }}...</span>
-        <span v-if="previewInfo.state == 'ready' && !previewLoginLink">Status: Generating a login link...</span> 
+        <span v-if="previewInfo.state == 'ready' && !previewLoginLink">Generating a login link...</span> 
       </h4> 
       <div class="progress">
         <div
