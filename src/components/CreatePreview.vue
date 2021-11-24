@@ -64,7 +64,6 @@ export default {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.previewId = data.preview;
         this.updatePreviewUntilReady()
         .then(() => {
@@ -84,7 +83,6 @@ export default {
       this.previewInfo = await this.fetchPreviewInfo(this.previewId);
     },
     fetchPreviewInfo(previewId) {
-      console.log('fetching preview info');
       const payload = {previewId};
       return fetch ('.netlify/functions/get-preview', {
         method: 'POST',
@@ -101,7 +99,6 @@ export default {
       this.previewLoginLink = await this.fetchPreviewLoginLink(this.previewId);
     },
     fetchPreviewLoginLink(previewId) {
-      console.log('fetching preview login link');
       const payload = {previewId};
       return fetch ('.netlify/functions/get-preview-login-link', {
         method: 'POST',

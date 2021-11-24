@@ -22,7 +22,6 @@ exports.handler = async function(event, context) {
     .then(response => response.json())
     .then(data => {
         data.reverse();
-        console.log(data);
         let drushIndex = data.findIndex(log => log.message && log.message.includes('drush uli'));
 
         // Bail if no drush uli is found.
