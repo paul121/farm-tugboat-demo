@@ -6,11 +6,20 @@
         <h4>View the dashboard <a :href="previewLoginLink" target="_blank">here</a> - happy record keeping!</h4>
       </template>
       
-      <h4>
-        Status: 
-        <span v-if="!previewInfo.state">Creating preview...</span>
-        <span v-if="!!previewInfo.state">{{ this.previewInfo.state }}</span>
+      <h4> 
+        <span v-if="previewInfo.state != 'ready'">Status: {{ this.previewInfo.state }}...</span>
+        <span v-if="previewInfo.state == 'ready' && !previewLoginLink">Status: Generating a login link...</span> 
       </h4> 
+      <div class="progress">
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          role="progressbar"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          :aria-valuenow="percentComplete"
+          :style="{width: percentComplete + '%'}"
+        />
+      </div>
 
       <h4 v-if="!!previewId">
         Preview ID: {{ this.previewId }}
@@ -33,12 +42,37 @@ export default {
     return {
       basePreviewOptions: basePreviews, 
       selectedPreview: null,
+      buildStart: null,
       previewId: '',
       previewInfo: {
-        state: '',
+        state: 'creating',
         url: '',
       },
       previewLoginLink: '',
+    }
+  },
+  computed: {
+    percentComplete: function ()  {
+      let percent = 0;
+      switch(this.previewInfo?.state) {
+        case 'ready':
+          percent = this.previewLoginLink ? 100 : 90;
+          break;
+        case 'building':
+          percent = 10;
+          if (this.buildStart) {
+            let seconds = Math.round((Date.now() - this.buildStart)/1000);
+            percent = seconds < 40 ? percent + seconds * 2 : 80;
+          }
+          break;
+        case 'pending':
+          percent = 5;
+          break;
+        case 'creating':
+        default:
+          percent = 0;  
+      }
+      return percent;
     }
   },
   mounted() {
@@ -64,10 +98,16 @@ export default {
       })
       .then(response => response.json())
       .then(data => {
+        this.buildStart = Date.now();
         this.previewId = data.preview;
         this.updatePreviewUntilReady()
         .then(() => {
-          this.updatePreviewLoginLink();
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              this.updatePreviewLoginLink();
+              resolve();
+            }, 2000);
+          })
         })
       })
       .catch(error => alert(error));
