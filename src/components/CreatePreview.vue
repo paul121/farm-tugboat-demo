@@ -20,15 +20,6 @@
           :style="{width: percentComplete + '%'}"
         />
       </div>
-
-      <h4 v-if="!!previewId">
-        Preview ID: {{ this.previewId }}
-      </h4>
- 
-      <h4 v-if="!!previewInfo.url">
-        Preview URL: <a :href="this.previewInfo.url" target="_blank">{{ this.previewInfo.url}}</a>
-      </h4>
-
     </div>
   </div>
 </template>
