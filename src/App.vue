@@ -25,7 +25,7 @@
   </header>
 
   <main class="flex-shrink-0">
-    <div class="container">
+    <div class="container pt-5">
       <router-view/>
     </div>
   </main>
@@ -44,10 +44,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-main > .container {
-  padding: 60px 15px 0;
 }
 
 img.logo {
