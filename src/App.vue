@@ -10,7 +10,7 @@
         </button>
         <div class="d-flex justify-content-end collapse navbar-collapse" id="navbarCollapse">
           <div class=" navbar-nav">
-            <router-link to="/" class="nav-link">Home</router-link>
+            <router-link to="/" class="nav-link">Demo</router-link>
             <a href="https://docs.farmos.org" role="link" aria-label="#" class="nav-link">Documentation</a>
             <router-link to="/about" class="nav-link">About</router-link>
           </div>
