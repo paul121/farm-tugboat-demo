@@ -1,34 +1,6 @@
 <template>
   <div>
-    <div id="form-wrapper" v-if="!submitted">
-
-      <form @submit.prevent="onSubmit">
-        <h3>Demo farmOS!</h3>
-
-        <h4>Select a demo:</h4>
-        <div class="radio-wrapper">
-          <template v-for="option in basePreviewOptions" :key="option.id">
-            <input
-              type="radio"
-              :id="'base-' + option.id"
-              :value="option.id"
-              v-model="baseId"
-              :disabled="!option.enabled"
-            />
-            <label :for="'base-' + option.id">
-              <span class="label">{{ option.label }}</span>
-              <span class="disabled" v-if="!option.enabled"> (coming soon)</span>
-              <span class="description">: {{ option.description }}</span>
-            </label>
-            <br />
-          </template>
-        </div>
-
-        <input class="button" type="submit" value="Submit" :disabled="submitted || !baseId">  
-      </form>
-    </div>
-
-    <div id="preview-wrapper" v-if="submitted">
+    <div id="preview-wrapper">
       <template v-if="previewLoginLink">
         <h3>Your demo of farmOS is ready!</h3>
         <h4>View the dashboard <a :href="previewLoginLink" target="_blank">here</a> - happy record keeping!</h4>
@@ -53,33 +25,14 @@
 </template>
 
 <script>
+import basePreviews from "../basePreviews.js"
 
 export default {
   name: 'CreatePreview',
   data() {
     return {
-      submitted: false,
-      basePreviewOptions: [
-        {
-          id: '618f7136908ae14527591948',
-          enabled: true,
-          label: '2.x',
-          description: 'Fresh farmOS 2.0 install.',
-        },
-        {
-          id: '0',
-          enabled: false,
-          label: 'Market farm',
-          description: 'An example of the crop plan.',
-        },
-        {
-          id: '1',
-          enabled: false,
-          label: 'Ranch',
-          description: 'An example of the grazing plan.',
-        },
-      ],
-      baseId: '',
+      basePreviewOptions: basePreviews, 
+      selectedPreview: null,
       previewId: '',
       previewInfo: {
         state: '',
@@ -88,21 +41,26 @@ export default {
       previewLoginLink: '',
     }
   },
-  methods: {
-    onSubmit() {
-      this.submitted = true;
-
-      const payload = {
-        baseId: this.baseId,
+  mounted() {
+    this.$nextTick(function () {
+      this.selectedPreview = this.basePreviewOptions.find(preview => preview.id === this.$route.params.id)
+      if (this.selectedPreview?.id) {
+        this.createPreview(this.selectedPreview.id);
       }
-
+      else {
+        this.$router.push('/');
+      }
+    })
+  },
+  methods: {
+    createPreview(baseId) {
       fetch('/.netlify/functions/create-preview', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({baseId}),
       })
       .then(response => response.json())
       .then(data => {

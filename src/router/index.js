@@ -15,7 +15,7 @@ const routes = [
     component: About
   },
   {
-    path: '/demo',
+    path: '/demo/:id',
     name: 'Demo',
     component: CreatePreview,
   },
