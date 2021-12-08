@@ -20,6 +20,10 @@ services:
         # Drush site-install to a sqlite file.
         drush site:install --yes --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin farm farm.modules='all'
 
+        # Configure mapbox.
+        drush en farm_map_mapbox --yes
+        drush config:set farm_map_mapbox.settings api_key $MAPBOX_API_KEY --yes
+
         # Create test users with manager, worker and viewer roles.
         drush user-create manager && drush user-add-role farm_manager manager
         drush user-create worker && drush user-add-role farm_worker worker
