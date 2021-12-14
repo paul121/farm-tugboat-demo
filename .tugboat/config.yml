@@ -33,6 +33,9 @@ services:
         chgrp -R www-data /opt/drupal/web/sites/default/files
         chmod 2775 /opt/drupal/web/sites/default/files
         chmod -R g+w /opt/drupal/web/sites/default/files
+
+        # Update ownership of keys directory.
+        chown -R www-data:www-data /opt/drupal/keys
       
       # Commands that build the site. When a preview is built from a base
       # preview, the build workflow starts here, skipping the init and 
