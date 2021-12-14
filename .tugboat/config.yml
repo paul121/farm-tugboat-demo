@@ -43,6 +43,9 @@ services:
       build: |
         set -eux
 
+        # Set the site name equal to the preview name.
+        drush config-set system.site name "$TUGBOAT_PREVIEW_NAME" --yes
+
         # Create a login link for the manager user.
         drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard
 

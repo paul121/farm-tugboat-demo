@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="preview-wrapper">
+      <h3>{{ this.previewName }}</h3>
       <template v-if="previewLoginLink">
         <h3>Your demo of farmOS is ready!</h3>
         <h4>View the dashboard <a :href="previewLoginLink" target="_blank">here</a> - happy record keeping!</h4>
@@ -25,6 +26,7 @@
 </template>
 
 <script>
+import Chance from "chance"
 import basePreviews from "../basePreviews.js"
 
 export default {
@@ -34,6 +36,7 @@ export default {
       basePreviewOptions: basePreviews, 
       selectedPreview: null,
       buildStart: null,
+      previewName: null,
       previewId: '',
       previewInfo: {
         state: 'creating',
@@ -70,7 +73,11 @@ export default {
     this.$nextTick(function () {
       this.selectedPreview = this.basePreviewOptions.find(preview => preview.id === this.$route.params.id)
       if (this.selectedPreview?.id) {
-        this.createPreview(this.selectedPreview.id);
+        this.generateName()
+        .then(name => {
+          this.previewName = name;
+          this.createPreview(this.selectedPreview.id, this.previewName);
+        });
       }
       else {
         this.$router.push('/');
@@ -78,14 +85,14 @@ export default {
     })
   },
   methods: {
-    createPreview(baseId) {
+    createPreview(baseId, name = 'Demo farm') {
       fetch('/.netlify/functions/create-preview', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({baseId}),
+        body: JSON.stringify({baseId, name}),
       })
       .then(response => response.json())
       .then(data => {
@@ -142,6 +149,15 @@ export default {
       .then(response => response.json())
       .then(data => data.loginLink)
       .catch(error => alert(error));
+    },
+    async generateName() {
+      const chance = new Chance();
+      const name = chance.first();
+      let animal = chance.animal({type: 'farm'});
+      while (['Dog', 'Cat'].includes(animal)) {
+        animal = chance.animal({type: 'farm'});
+      }
+      return `${name}'s ${animal} Farm`; 
     }
   }
 }

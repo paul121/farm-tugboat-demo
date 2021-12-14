@@ -28,7 +28,7 @@ exports.handler = async function(event, context) {
         anchor: false,
         base: body.baseId,
         expires: expires.toJSON(),
-        name: 'Test preview',
+        name: body.name ?? 'Demo Farm',
     }
 
     // Create the preview.
