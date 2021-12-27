@@ -25,7 +25,7 @@ services:
         drush config:set farm_map_mapbox.settings api_key $MAPBOX_API_KEY --yes
 
         # Create test users with manager, worker and viewer roles.
-        drush user-create manager && drush user-add-role farm_manager manager
+        drush user-create manager --password manager && drush user-add-role farm_manager manager
         drush user-create worker && drush user-add-role farm_worker worker
         drush user-create viewer && drush user-add-role farm_viewer viewer
 
