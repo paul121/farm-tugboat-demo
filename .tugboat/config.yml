@@ -1,6 +1,6 @@
 services:
   php:
-    image: farmos/farmos:2.x
+    image: farmos/farmos:2.0.0-beta1
     default: true
     commands:
       
