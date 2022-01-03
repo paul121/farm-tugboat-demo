@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - consumers
+    - farm_map
+    - farm_settings
+    - role_delegation
+    - simple_oauth
+id: demo_admin
+label: 'Demo admin'
+weight: 2
+is_admin: null
+permissions:
+  - 'add consumer entities'
+  - 'add simple_oauth entities'
+  - 'administer consumer entities'
+  - 'administer farm map'
+  - 'administer farm settings'
+  - 'administer simple_oauth entities'
+  - 'assign farm_manager role'
+  - 'assign farm_viewer role'
+  - 'assign farm_worker role'
+  - 'debug simple_oauth tokens'
+  - 'delete own consumer entities'
+  - 'delete own simple_oauth entities'
+  - 'grant simple_oauth codes'
+  - 'update own consumer entities'
+  - 'update own simple_oauth entities'
+  - 'view own consumer entities'
+  - 'view own simple_oauth entities'
