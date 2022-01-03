@@ -7,6 +7,11 @@ services:
       # Commands that set up the basic preview infrastructure.
       init: |
         set -eux
+
+        # Additional composer dependencies.
+        cd /opt/drupal
+        composer require drupal/role_delegation -W --no-install
+        composer install
       
       # Commands that import files, databases, or other assets.
       # When an existing preview is refreshed, the build workflow starts
@@ -23,6 +28,9 @@ services:
         # Configure mapbox.
         drush en farm_map_mapbox --yes
         drush config:set farm_map_mapbox.settings api_key $MAPBOX_API_KEY --yes
+
+        # Configure demo admin role.
+        drush en role_delegation
 
         # Create test users with manager, worker and viewer roles.
         drush user-create manager --password manager && drush user-add-role farm_manager manager
