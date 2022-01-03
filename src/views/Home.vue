@@ -4,7 +4,7 @@
     <p class="fs-5 mb-0 text-muted">Create a free, private demo of farmOS in 30 seconds.</p>
     <p class="fs-5 text-muted">Start from scratch or preview farmOS with a curated dataset.</p>
   </div>
-  <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+  <div class="row row-cols-1 row-cols-md-3 mb-3">
     <template v-for="option in basePreviewOptions" :key="option.id">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
@@ -12,9 +12,17 @@
             <h4 class="my-0 fw-normal">{{ option.label }}</h4>
           </div>
           <div class="card-body">
-            <ul class="preview-description list-unstyled mt-3 mb-4">
-              <li>{{ option.description }}</li>
-            </ul>
+            <p class="card-text">{{ option.description }}</p>
+            <div class="features">
+              <ul>
+                <li
+                  v-for="(feature, index) in option.features"
+                  :key="index"
+                >
+                  {{ feature }}
+                </li>
+              </ul>
+            </div> 
             <button
               @click="$router.push({ name: 'Demo', params: { id: option.id}})"
               :disabled="!option.enabled"
@@ -43,7 +51,13 @@ export default {
 }
 </script>
 <style>
-.preview-description {
-  min-height: 3.5em;
+.features {
+  display: flex;
+  justify-content: center;
+  min-height: 6em;
+}
+.features ul {
+  list-style: disc;
+  text-align: left;
 }
 </style>
