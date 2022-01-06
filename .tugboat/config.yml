@@ -6,8 +6,6 @@ services:
       
       # Commands that set up the basic preview infrastructure.
       init: |
-        set -eux
-
         # Additional composer dependencies.
         cd /opt/drupal
         composer require drupal/role_delegation -W --no-install
@@ -17,13 +15,11 @@ services:
       # When an existing preview is refreshed, the build workflow starts
       # here, skipping the build step.
       update: |
-        set -eux
-
         # Create a files directory.
         mkdir -p /opt/drupal/web/sites/default/files
         
         # Drush site-install to a sqlite file.
-        drush site:install --yes --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin farm farm.modules='all'
+        drush site:install --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=$ADMIN_PASSWORD farm farm.modules='all' --yes
 
         # Configure mapbox.
         drush en farm_map_mapbox --yes
