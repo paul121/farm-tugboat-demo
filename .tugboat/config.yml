@@ -51,6 +51,9 @@ services:
         # Set the site name equal to the preview name.
         drush config-set system.site name "$TUGBOAT_PREVIEW_NAME" --yes
 
+        # Set the site default timezone.
+        drush config-set system.date timezone.default $DEFAULT_TIMEZONE --yes
+
         # Create a login link for the manager user.
         drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard
 

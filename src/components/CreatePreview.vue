@@ -10,6 +10,18 @@
                 <label for="farmName" class="form-label">Farm name</label>
                 <input v-model.trim="previewName" :placeholder="previewName" type="text" class="form-control" id="farmName" aria-describedby="farm name">
               </div>
+              <div class="mb-3">
+                <label for="timezone" class="form-label">Timezone</label>
+                <select v-model="previewTimezone" id="timezone" class="form-select">
+                  <option
+                    v-for="(timezone, index) in timezoneOptions"
+                    :key="index"
+                    :value="timezone"
+                  >
+                    {{ timezone }}
+                  </option>
+                </select>
+              </div>
             </form>
               <button
                 @click="createPreview(this.selectedPreview.id, this.previewName)"
@@ -67,16 +79,19 @@
 <script>
 import Chance from "chance"
 import basePreviews from "../basePreviews.js"
+import timezones from "../timezones.js"
 
 export default {
   name: 'CreatePreview',
   data() {
     return {
       basePreviewOptions: basePreviews, 
+      timezoneOptions: timezones,
       selectedPreview: null,
       submitted: false,
       buildStart: null,
       previewName: '',
+      previewTimezone: null,
       previewId: '',
       previewInfo: {
         state: 'creating',
@@ -114,6 +129,7 @@ export default {
       this.selectedPreview = this.basePreviewOptions.find(preview => preview.id === this.$route.params.id)
       if (this.selectedPreview?.id) {
         this.previewName = this.generateName();
+        this.previewTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       }
       else {
         this.$router.push('/');

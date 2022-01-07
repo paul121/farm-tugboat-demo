@@ -21,7 +21,8 @@ exports.handler = async function(event, context) {
 
     // Build payload.
     const expires = new Date();
-    expires.setDate(expires.getDate() + 1);
+    //expires.setDate(expires.getDate() + 1);
+    expires.setHours(expires.getMinutes() + 10);
     const payload = {
         ref: 'main',
         repo: repoId,
@@ -29,6 +30,7 @@ exports.handler = async function(event, context) {
         base: body.baseId,
         expires: expires.toJSON(),
         name: body.name ?? 'Demo Farm',
+        timezone: body.timezone ?? '',
     }
 
     // Create the preview.
