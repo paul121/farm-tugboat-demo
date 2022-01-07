@@ -18,6 +18,7 @@ permissions:
   - 'administer farm map'
   - 'administer farm settings'
   - 'administer simple_oauth entities'
+  - 'administer users'
   - 'assign farm_manager role'
   - 'assign farm_viewer role'
   - 'assign farm_worker role'

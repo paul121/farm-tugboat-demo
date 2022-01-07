@@ -10,7 +10,7 @@ services:
 
         # Additional composer dependencies.
         cd /opt/drupal
-        composer require drupal/role_delegation -W --no-install
+        composer require drupal/role_delegation drupal/userprotect -W --no-install
         composer install --no-cache --no-interaction
       
       # Commands that import files, databases, or other assets.
@@ -32,6 +32,7 @@ services:
 
         # Configure demo admin role.
         drush en role_delegation
+        drush en userprotect
         drush config:import --partial --source $TUGBOAT_ROOT/drupal/config -y
 
         # Create test users with manager, worker and viewer roles.
