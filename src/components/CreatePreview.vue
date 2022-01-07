@@ -159,7 +159,7 @@ export default {
     },
     fetchPreviewInfo(previewId) {
       const payload = {previewId};
-      return fetch ('.netlify/functions/get-preview', {
+      return fetch ('/.netlify/functions/get-preview', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -175,7 +175,7 @@ export default {
     },
     fetchPreviewLoginLink(previewId) {
       const payload = {previewId};
-      return fetch ('.netlify/functions/get-preview-login-link', {
+      return fetch ('/.netlify/functions/get-preview-login-link', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
