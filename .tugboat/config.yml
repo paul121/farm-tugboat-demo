@@ -17,6 +17,9 @@ services:
       # When an existing preview is refreshed, the build workflow starts
       # here, skipping the build step.
       update: |
+        # Do not print commands with their arguments because it contains sensitive information.
+        set -eu
+
         # Create a files directory.
         mkdir -p /opt/drupal/web/sites/default/files
         
