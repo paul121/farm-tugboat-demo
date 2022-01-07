@@ -1,8 +1,28 @@
 <template>
   <div>
     <div id="preview-wrapper">
-      <h3>{{ this.previewName }}</h3>
-      <div id="preview-building-wrapper" v-if="!previewLoginLink">
+      <div id="preview-form" v-if="!submitted">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Configure demo</h4>
+            <form>
+              <div class="mb-3">
+                <label for="farmName" class="form-label">Farm name</label>
+                <input v-model.trim="previewName" :placeholder="previewName" type="text" class="form-control" id="farmName" aria-describedby="farm name">
+              </div>
+            </form>
+              <button
+                @click="createPreview(this.selectedPreview.id, this.previewName)"
+                :disabled="!previewName.length || submitted"
+                class="btn btn-lg btn-primary"
+              >
+                Create
+              </button>
+          </div>
+        </div>
+      </div>
+      <div id="preview-building-wrapper" v-if="submitted && !previewLoginLink">
+        <h3>{{ this.previewName }}</h3>
         <h4> 
           <span v-if="previewInfo.state != 'ready'">Status: {{ this.previewInfo.state }}...</span>
           <span v-if="previewInfo.state == 'ready'">Generating a login link...</span> 
@@ -19,6 +39,7 @@
         </div>
       </div>
       <div id="preview-login-wrapper" v-if="previewLoginLink">
+        <h3>{{ this.previewName }}</h3>
         <div>
           <h4>Your demo of farmOS is ready!</h4>
           <a :href="previewLoginLink" target="_blank" class="btn btn-outline-primary btn-lg">View the dashboard</a>
@@ -53,8 +74,9 @@ export default {
     return {
       basePreviewOptions: basePreviews, 
       selectedPreview: null,
+      submitted: false,
       buildStart: null,
-      previewName: null,
+      previewName: '',
       previewId: '',
       previewInfo: {
         state: 'creating',
@@ -91,11 +113,7 @@ export default {
     this.$nextTick(function () {
       this.selectedPreview = this.basePreviewOptions.find(preview => preview.id === this.$route.params.id)
       if (this.selectedPreview?.id) {
-        this.generateName()
-        .then(name => {
-          this.previewName = name;
-          this.createPreview(this.selectedPreview.id, this.previewName);
-        });
+        this.previewName = this.generateName();
       }
       else {
         this.$router.push('/');
@@ -104,6 +122,7 @@ export default {
   },
   methods: {
     createPreview(baseId, name = 'Demo farm') {
+      this.submitted = true;
       fetch('/.netlify/functions/create-preview', {
         method: 'POST',
         headers: {
@@ -168,7 +187,7 @@ export default {
       .then(data => data.loginLink)
       .catch(error => alert(error));
     },
-    async generateName() {
+    generateName() {
       const chance = new Chance();
       const name = chance.first();
       let animal = chance.animal({type: 'farm'});
@@ -183,9 +202,19 @@ export default {
 
 <style>
 
-h3 {
+#preview-wrapper {
+  margin: auto;
   margin-top: 2em;
-  margin-bottom: 1em;
+  max-width: 750px;
+}
+
+#preview-form {
+  margin: auto;
+  max-width: 750px;
+}
+
+#preview-login-wrapper div {
+  margin-bottom: 2em;
 }
 
 h4 {
@@ -193,8 +222,12 @@ h4 {
 }
 
 form {
-  margin: auto;
-  max-width: 35%;
+  margin: 2em auto;
+  max-width: 300px;
+  text-align: left;
+}
+form input {
+  margin: 0;
 }
 
 form .radio-wrapper {
@@ -208,14 +241,5 @@ input {
 
 ul {
   list-style: none;
-}
-
-#preview-wrapper {
-  margin: auto;
-  max-width: 750px;
-}
-
-#preview-login-wrapper div {
-  margin-bottom: 2em;
 }
 </style>
