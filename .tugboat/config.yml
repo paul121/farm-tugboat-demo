@@ -6,10 +6,12 @@ services:
       
       # Commands that set up the basic preview infrastructure.
       init: |
+        set -eux
+
         # Additional composer dependencies.
         cd /opt/drupal
         composer require drupal/role_delegation -W --no-install
-        composer install
+        composer install --no-cache --no-interaction
       
       # Commands that import files, databases, or other assets.
       # When an existing preview is refreshed, the build workflow starts
