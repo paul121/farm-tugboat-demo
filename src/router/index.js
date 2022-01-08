@@ -16,8 +16,13 @@ const routes = [
     component: About
   },
   {
-    path: '/demo/:id',
-    name: 'Demo',
+    path: '/demo/:alias',
+    name: 'demo-alias',
+    component: CreatePreview,
+  },
+  {
+    path: '/demo/id/:id([a-z\\|\\d]{24})',
+    name: 'demo-id',
     component: CreatePreview,
   },
   {

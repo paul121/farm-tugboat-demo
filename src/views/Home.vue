@@ -24,7 +24,7 @@
               </ul>
             </div> 
             <button
-              @click="$router.push({ name: 'Demo', params: { id: option.id}})"
+              @click="$router.push({ name: 'demo-alias', params: { alias: option.alias}})"
               :disabled="!option.enabled"
               class="btn btn-lg btn-primary"
             >

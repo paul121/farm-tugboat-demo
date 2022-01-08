@@ -4,7 +4,7 @@
       <div id="preview-form" v-if="!submitted">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">Configure demo</h4>
+            <h5 class="card-title" v-if="selectedPreview.label">Configure your {{ selectedPreview.label }} demo:</h5>
             <form>
               <div class="mb-3">
                 <label for="farmName" class="form-label">Farm name</label>
@@ -73,7 +73,7 @@ export default {
   data() {
     return {
       basePreviewOptions: basePreviews, 
-      selectedPreview: null,
+      selectedPreview: {},
       submitted: false,
       buildStart: null,
       previewName: '',
@@ -111,7 +111,20 @@ export default {
   },
   mounted() {
     this.$nextTick(function () {
-      this.selectedPreview = this.basePreviewOptions.find(preview => preview.id === this.$route.params.id)
+
+      // Load preview by alias.
+      if (this.$route.params.alias) {
+        this.selectedPreview = this.basePreviewOptions.find(preview => preview.alias === this.$route.params.alias);
+      }
+
+      // Load preview by id.
+      if (this.$route.params.id) {
+        this.selectedPreview = this.basePreviewOptions.find(preview => preview.id === this.$route.params.id);
+        // Default to using the preview id in case it is custom.
+        // @todo: this could be validated with a quick GET to the tugboat API.
+        this.selectedPreview = this.selectedPreview ?? {id: this.$route.params.id, label: 'Custom preview'};
+      } 
+
       if (this.selectedPreview?.id) {
         this.previewName = this.generateName();
       }

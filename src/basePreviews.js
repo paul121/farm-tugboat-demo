@@ -2,6 +2,7 @@ const basePreviews = [
   {
     id: '618f7136908ae14527591948',
     enabled: true,
+    alias: '2.x',
     label: 'farmOS 2',
     description: 'Fresh farmOS 2.0 install.',
     features: [
@@ -11,8 +12,9 @@ const basePreviews = [
     ],
   },
   {
-    id: '0',
+    id: null,
     enabled: false,
+    alias: 'crop-plan',
     label: 'Market farm',
     description: 'An example of the crop plan.',
     features: [
@@ -22,8 +24,9 @@ const basePreviews = [
     ],
   },
   {
-    id: '1',
+    id: null,
     enabled: false,
+    alias: 'grazing-plan',
     label: 'Ranch',
     description: 'An example of the grazing plan.',
     features: [
