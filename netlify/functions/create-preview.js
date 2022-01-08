@@ -27,7 +27,7 @@ exports.handler = async function(event, context) {
     if (process.env.CONTEXT === 'dev') {
         body.name += ' (dev)';
         expires = new Date();
-        expires.setMinutes(expires.getMinutes() + 1);
+        expires.setHours(expires.getHours() + 1);
     }
 
     // Build payload.
