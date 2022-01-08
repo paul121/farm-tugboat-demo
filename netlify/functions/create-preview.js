@@ -19,9 +19,18 @@ exports.handler = async function(event, context) {
         }
     }
 
-    // Build payload.
-    const expires = new Date();
+    // Set expiration.
+    let expires = new Date();
     expires.setDate(expires.getDate() + 1);
+
+    // Development settings.
+    if (process.env.CONTEXT === 'dev') {
+        body.name += ' (dev)';
+        expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 1);
+    }
+
+    // Build payload.
     const payload = {
         ref: 'main',
         repo: repoId,
@@ -42,6 +51,9 @@ exports.handler = async function(event, context) {
     })
     .then(response => response.json())
     .then(data => {
+        if (!data.hasOwnProperty("preview")) {
+            throw "Error creating preview.";
+        }
         return {
             statusCode: 202,
             body: JSON.stringify(data),
