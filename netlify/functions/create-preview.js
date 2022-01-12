@@ -1,6 +1,11 @@
 const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
+    // Load but do not cache the build_steps.json file.
+    const path = '../../.tugboat/build_steps.json';
+    const config = require(path);
+    delete require.cache[require.resolve(path)];
+
     const apiKey = process.env.TUGBOAT_API_KEY;
     const repoId = process.env.TUGBOAT_REPO_ID;
     if (!apiKey || !repoId) {
@@ -19,6 +24,11 @@ exports.handler = async function(event, context) {
         }
     }
 
+    // Set the default timezone.
+    const timezone = body.timezone ?? 'America/Los_Angeles';
+    const updateTimezone = `TIMEZONE="${timezone}"; drush config-set system.date timezone.default "$TIMEZONE" --yes`;
+    config.services.php.commands.build.unshift(updateTimezone);
+
     // Set expiration.
     let expires = new Date();
     expires.setDate(expires.getDate() + 1);
@@ -36,6 +46,7 @@ exports.handler = async function(event, context) {
         repo: repoId,
         anchor: false,
         base: body.baseId,
+        config,
         expires: expires.toJSON(),
         name: body.name ?? 'Demo Farm',
     }

@@ -35,11 +35,6 @@ services:
         drush en userprotect
         drush config:import --partial --source $TUGBOAT_ROOT/drupal/config -y
 
-        # Create test users with manager, worker and viewer roles.
-        drush user-create manager --password manager && drush user-add-role farm_manager manager && drush user-add-role demo_admin manager
-        drush user-create worker && drush user-add-role farm_worker worker
-        drush user-create viewer && drush user-add-role farm_viewer viewer
-
         # Update ownership of files so www-data has access to db.
         chgrp -R www-data /opt/drupal/web/sites/default/files
         chmod 2775 /opt/drupal/web/sites/default/files
@@ -52,13 +47,24 @@ services:
       # preview, the build workflow starts here, skipping the init and 
       # update steps.
       build: |
-        set -eux
+        # Generate build_steps.json using
+        # tugboat validate .tugboat/config.yml | jq "map_values(del(.php.commands.init, .php.commands.update))" > netlify/functions/build_steps.json
+        set -ex
 
         # Set the site name equal to the preview name.
         drush config-set system.site name "$TUGBOAT_PREVIEW_NAME" --yes
 
-        # Create a login link for the manager user.
-        drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard
+        # Only create users once building the final preview.
+        if [ $TUGBOAT_BASE_PREVIEW ]; then
+
+          # Create test users with manager, worker and viewer roles.
+          drush user-create manager --password manager && drush user-add-role farm_manager manager && drush user-add-role demo_admin manager
+          drush user-create worker && drush user-add-role farm_worker worker
+          drush user-create viewer && drush user-add-role farm_viewer viewer
+
+          # Create a login link for the manager user.
+          drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard
+        fi
 
         # Clear the cache.
         drush cache:rebuild

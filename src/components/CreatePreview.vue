@@ -10,6 +10,18 @@
                 <label for="farmName" class="form-label">Farm name</label>
                 <input v-model.trim="previewName" :placeholder="previewName" type="text" class="form-control" id="farmName" aria-describedby="farm name">
               </div>
+              <div class="mb-3">
+                <label for="timezone" class="form-label">Timezone</label>
+                <select v-model="previewTimezone" id="timezone" class="form-select">
+                  <option
+                    v-for="(timezone, index) in timezoneOptions"
+                    :key="index"
+                    :value="timezone"
+                  >
+                    {{ timezone }}
+                  </option>
+                </select>
+              </div>
             </form>
               <button
                 @click="createPreview(this.selectedPreview.id, this.previewName)"
@@ -67,16 +79,18 @@
 <script>
 import Chance from "chance"
 import basePreviews from "../basePreviews.js"
-
+import timezones from "../timezones.js"
 export default {
   name: 'CreatePreview',
   data() {
     return {
       basePreviewOptions: basePreviews, 
+      timezoneOptions: timezones,
       selectedPreview: {},
       submitted: false,
       buildStart: null,
       previewName: '',
+      previewTimezone: null,
       previewId: '',
       previewInfo: {
         state: 'creating',
@@ -127,6 +141,7 @@ export default {
 
       if (this.selectedPreview?.id) {
         this.previewName = this.generateName();
+        this.previewTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
       }
       else {
         this.$router.push('/');
@@ -136,13 +151,18 @@ export default {
   methods: {
     createPreview(baseId, name = 'Demo farm') {
       this.submitted = true;
+      const payload = {
+        baseId,
+        name,
+        timezone: this.previewTimezone,
+      };
       fetch('/.netlify/functions/create-preview', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({baseId, name}),
+        body: JSON.stringify(payload),
       })
       .then(response => response.json())
       .then(data => {

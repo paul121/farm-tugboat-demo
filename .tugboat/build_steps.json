@@ -1,0 +1,16 @@
+{
+  "services": {
+    "php": {
+      "image": "farmos/farmos:2.0.0-beta1",
+      "default": true,
+      "commands": {
+        "build": [
+          "# Generate build_steps.json using\n# tugboat validate .tugboat/config.yml | jq \"map_values(del(.php.commands.init, .php.commands.update))\" > netlify/functions/build_steps.json\nset -ex\n\n# Set the site name equal to the preview name.\ndrush config-set system.site name \"$TUGBOAT_PREVIEW_NAME\" --yes\n\n# Only create users once building the final preview.\nif [ $TUGBOAT_BASE_PREVIEW ]; then\n\n  # Create test users with manager, worker and viewer roles.\n  drush user-create manager --password manager && drush user-add-role farm_manager manager && drush user-add-role demo_admin manager\n  drush user-create worker && drush user-add-role farm_worker worker\n  drush user-create viewer && drush user-add-role farm_viewer viewer\n\n  # Create a login link for the manager user.\n  drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard\nfi\n\n# Clear the cache.\ndrush cache:rebuild\n"
+        ]
+      },
+      "checkout": true,
+      "expose": 80,
+      "https": true
+    }
+  }
+}
