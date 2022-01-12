@@ -176,7 +176,6 @@ export default {
       })
       .then(response => response.json())
       .then(data => {
-        this.buildStart = Date.now();
         this.previewId = data.preview;
         this.updatePreviewUntilReady()
         .then(() => {
@@ -192,7 +191,14 @@ export default {
     },
     async updatePreviewUntilReady() {
       await this.updatePreviewInfo();
-      if (this.previewInfo.state != 'ready') {
+
+      // Set the build start time once the preview is in the building state.
+      if (!this.buildStart && this.previewInfo.state == 'building') {
+        this.buildStart = Date.now();
+      }
+
+      // Keep fetching updates until ready.
+      if (!this.errorMessage && this.previewInfo.state != 'ready') {
         await new Promise(resolve => setTimeout(resolve, 4000));
         await this.updatePreviewUntilReady();
       }
