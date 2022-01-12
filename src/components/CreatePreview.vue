@@ -1,6 +1,9 @@
 <template>
   <div>
     <div id="preview-wrapper">
+      <div class="alert alert-danger" role="alert" v-if="errorMessage">
+          Error creating demo: {{ errorMessage }}
+      </div>
       <div id="preview-form" v-if="!submitted">
         <div class="card">
           <div class="card-body">
@@ -97,6 +100,7 @@ export default {
         url: '',
       },
       previewLoginLink: '',
+      errorMessage: null,
     }
   },
   computed: {
@@ -164,6 +168,12 @@ export default {
         },
         body: JSON.stringify(payload),
       })
+      .then(function(response) {
+        if (!response.ok) {
+          return response.json().then(json => { throw json; });
+        }
+        return response;
+      })
       .then(response => response.json())
       .then(data => {
         this.buildStart = Date.now();
@@ -178,7 +188,7 @@ export default {
           })
         })
       })
-      .catch(error => alert(error));
+      .catch(error => this.setError(error));
     },
     async updatePreviewUntilReady() {
       await this.updatePreviewInfo();
@@ -200,8 +210,14 @@ export default {
           },
         body: JSON.stringify(payload),
       })
+      .then(function(response) {
+        if (!response.ok) {
+          return response.json().then(json => { throw json; });
+        }
+        return response;
+      })
       .then(response => response.json())
-      .catch(error => alert(error));
+      .catch(error => this.setError(error));
     },
     async updatePreviewLoginLink() {
       this.previewLoginLink = await this.fetchPreviewLoginLink(this.previewId);
@@ -216,9 +232,15 @@ export default {
           },
         body: JSON.stringify(payload),
       })
+      .then(function(response) {
+        if (!response.ok) {
+          return response.json().then(json => { throw json; });
+        }
+        return response;
+      })
       .then(response => response.json())
       .then(data => data.loginLink)
-      .catch(error => alert(error));
+      .catch(error => this.setError(error));
     },
     generateName() {
       const chance = new Chance();
@@ -228,6 +250,9 @@ export default {
         animal = chance.animal({type: 'farm'});
       }
       return `${name}'s ${animal} Farm`; 
+    },
+    setError(message) {
+      this.errorMessage = message;
     }
   }
 }

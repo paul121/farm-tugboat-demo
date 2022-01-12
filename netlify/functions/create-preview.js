@@ -62,14 +62,33 @@ exports.handler = async function(event, context) {
     })
     .then(response => response.json())
     .then(data => {
+        if (data.code == 1022) {
+            const error = {
+                'code': 1,
+                'message': 'Demo limit has been reached. Please try again later.',
+            };
+            return {
+                statusCode: 400,
+                body: JSON.stringify(error),
+            };
+        }
         if (!data.hasOwnProperty("preview")) {
-            throw "Error creating preview.";
+            console.log(data);
+            const error = {
+                'code': 0,
+                'message': 'Demo not created. Please try again.',
+            };
+            return {
+                statusCode: 400,
+                body: JSON.stringify(error),
+            };
         }
         return {
             statusCode: 202,
             body: JSON.stringify(data),
         }
     }).catch(error => {
+        console.log(error);
         return {
             statusCode: 400,
             body: error,
