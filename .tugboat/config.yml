@@ -48,7 +48,7 @@ services:
       # update steps.
       build: |
         # Generate build_steps.json using
-        # tugboat validate .tugboat/config.yml | jq "map_values(del(.php.commands.init, .php.commands.update))" > netlify/functions/build_steps.json
+        # tugboat validate .tugboat/config.yml | jq "map_values(del(.php.commands.init, .php.commands.update))" > .tugboat/build_steps.json
         set -ex
 
         # Set the site name equal to the preview name.
