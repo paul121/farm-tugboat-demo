@@ -52,7 +52,7 @@ services:
         set -ex
 
         # Set the site name equal to the preview name.
-        drush config-set system.site name "$TUGBOAT_PREVIEW_NAME" --yes
+        drush config:set system.site name "$TUGBOAT_PREVIEW_NAME" --yes
 
         # Only create users once building the final preview.
         if [ $TUGBOAT_BASE_PREVIEW ]; then
