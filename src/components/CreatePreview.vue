@@ -25,6 +25,18 @@
                   </option>
                 </select>
               </div>
+              <div class="mb-3">
+                <label for="langcode" class="form-label">Language</label>
+                <select v-model="previewLangcode" id="langcode" class="form-select">
+                  <option
+                    v-for="(language, langcode) in langcodeOptions"
+                    :key="langcode"
+                    :value="langcode"
+                  >
+                    {{ language }}
+                  </option>
+                </select>
+              </div>
             </form>
               <button
                 @click="createPreview(this.selectedPreview.id, this.previewName)"
@@ -89,11 +101,19 @@ export default {
     return {
       basePreviewOptions: basePreviews, 
       timezoneOptions: timezones,
+      langcodeOptions: {
+        'en': 'English',
+        'de': 'German',
+        'es': 'Spanish',
+        'it': 'Italian',
+        'nl': 'Dutch',
+      },
       selectedPreview: {},
       submitted: false,
       buildStart: null,
       previewName: '',
       previewTimezone: null,
+      previewLangcode: 'en',
       previewId: '',
       previewInfo: {
         state: 'creating',
@@ -159,6 +179,7 @@ export default {
         baseId,
         name,
         timezone: this.previewTimezone,
+        langcode: this.previewLangcode,
       };
       fetch('/.netlify/functions/create-preview', {
         method: 'POST',

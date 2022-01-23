@@ -77,5 +77,10 @@ services:
           drush uli --uri $TUGBOAT_SERVICE_URL --name manager dashboard
         fi
 
+        # TODO: Find a better approach for this.
+        # This is temporary so users can be created with the specified language.
+        # Ensure the site ends up with english as the default language.
+        drush config:set system.site default_langcode en --yes
+
         # Clear the cache.
         drush cache:rebuild

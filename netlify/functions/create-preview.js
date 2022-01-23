@@ -29,6 +29,13 @@ exports.handler = async function(event, context) {
     const updateTimezone = `TIMEZONE="${timezone}"; drush config-set system.date timezone.default "$TIMEZONE" --yes`;
     config.services.php.commands.build.unshift(updateTimezone);
 
+    // Set the defaault langcode.
+    // Temporarily set the system.site default_langcode so users are created with correct language.
+    // TODO: Find a different approach for this.
+    const langcode = body.langcode ?? 'en';
+    const updateLangcode = `LANGCODE=${langcode}; drush config:set language.negotiation selected_langcode "$LANGCODE" --yes; drush config:set system.site default_langcode "$LANGCODE" --yes;`;
+    config.services.php.commands.build.unshift(updateLangcode);
+
     // Set expiration.
     let expires = new Date();
     expires.setDate(expires.getDate() + 1);
