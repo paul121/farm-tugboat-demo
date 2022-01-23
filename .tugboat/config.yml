@@ -42,6 +42,17 @@ services:
 
         # Update ownership of keys directory.
         chown -R www-data:www-data /opt/drupal/keys
+
+        # Download and import farmOS translations.
+        # TODO: Add --autocreate-language flag for drush 11.
+        for locale in de es it nl
+        do
+          curl "https://ftp.drupal.org/files/translations/all/farm/farm-2.0.0-beta2.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
+          drush locale:import $locale /opt/drupal/web/sites/default/files/translations/farm-$locale.po
+        done
+
+        # Update all module translations.
+        drush locale:update
       
       # Commands that build the site. When a preview is built from a base
       # preview, the build workflow starts here, skipping the init and 
