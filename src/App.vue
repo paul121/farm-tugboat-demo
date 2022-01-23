@@ -1,33 +1,19 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-md fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-          <img class="logo" alt="farmOS logo" src="./assets/farmOS-logo.png">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="d-flex justify-content-end collapse navbar-collapse" id="navbarCollapse">
-          <div class=" navbar-nav">
-            <router-link to="/" class="nav-link">Demo</router-link>
-            <a href="https://docs.farmos.org" role="link" aria-label="#" class="nav-link">Documentation</a>
-            <router-link to="/about" class="nav-link">About</router-link>
-          </div>
-        </div>
-      </div>
+    <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+        <img class="logo" alt="farmOS logo" src="./assets/farmOS-logo.png">
       </a>
-
-      <div class="d-flex">
-      </div>
-    </nav>
+      <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+        <router-link to="/" class="nav-link">Demo</router-link>
+        <a href="https://docs.farmos.org" role="link" aria-label="#" class="nav-link">Documentation</a>
+        <router-link to="/about" class="nav-link">About</router-link>
+      </nav>
+    </div>
   </header>
 
   <main class="flex-shrink-0">
-    <div class="container pt-5">
-      <router-view/>
-    </div>
+    <router-view/>
   </main>
 </template>
 
@@ -38,6 +24,10 @@ export default {
 </script>
 
 <style>
+.container {
+  max-width: 1024px;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
