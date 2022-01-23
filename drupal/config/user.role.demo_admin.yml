@@ -3,6 +3,7 @@ status: true
 dependencies:
   module:
     - consumers
+    - farm_l10n
     - farm_map
     - farm_settings
     - role_delegation
@@ -15,6 +16,7 @@ permissions:
   - 'add consumer entities'
   - 'add simple_oauth entities'
   - 'administer consumer entities'
+  - 'administer farm language'
   - 'administer farm map'
   - 'administer farm settings'
   - 'administer simple_oauth entities'
