@@ -15,6 +15,31 @@
   <main class="flex-shrink-0">
     <router-view/>
   </main>
+
+  <footer class="pt-5 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <small class="d-block mb-3 text-muted">logos</small>
+      </div>
+      <div class="col-6 col-md">
+        <h5><a href="https://farmos.org">farmOS.org</a></h5>
+        <ul class="list-unstyled text-small">
+          <li class="mb-1"><a href="https://farmos.org/guide/">User Guide</a></li>
+          <li class="mb-1"><a href="https://farmos.org/donate/">Donate</a></li>
+          <li class="mb-1"><a href="https://farmos.discourse.group/">Forum</a></li>
+          <li class="mb-1"><a href="https://riot.im/app/#/room/#farmOS:matrix.org">Chat</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-md">
+        <h5>About</h5>
+        <ul class="list-unstyled text-small">
+          <li class="mb-1"><router-link to="/about" class="footer-link">About this service</router-link></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://github.com/paul121/farm-tugboat-demo/issues/new">Report an issue</a></li>
+          <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://github.com/paul121/farm-tugboat-demo">Source code</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 </template>
 
 <script>
@@ -28,7 +53,7 @@ export default {
   max-width: 1024px;
 }
 
-#app {
+#app main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -38,5 +63,14 @@ export default {
 
 img.logo {
   height: 30px;
+}
+
+footer h5 a{
+  color: var(--bs-body-color);
+}
+
+footer a {
+  text-decoration: none!important;
+  color: #6c757d;
 }
 </style>
