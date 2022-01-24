@@ -68,6 +68,7 @@ img.logo {
 
 img.farmos-logo {
   height: 1.5em;
+  margin-bottom: .5em;
 }
 
 footer h5 a{
