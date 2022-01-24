@@ -6,9 +6,8 @@
         &nbsp; farmOS/Demo
       </a>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
-        <router-link to="/" class="nav-link">Demo</router-link>
         <a href="https://farmos.org" role="link" aria-label="farmOS.org" class="nav-link">farmOS.org</a>
-        <router-link to="/about" class="nav-link">About</router-link>
+        <router-link to="/about" class="nav-link">About this service</router-link>
       </nav>
     </div>
   </header>
