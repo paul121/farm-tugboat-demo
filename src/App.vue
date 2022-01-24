@@ -23,7 +23,7 @@
         <small class="d-block mb-3 text-muted">logos</small>
       </div>
       <div class="col-6 col-md">
-        <h5><a href="https://farmos.org">farmOS.org</a></h5>
+        <a href="https://farmos.org"><img class="farmos-logo" alt="farmos-logo" :src="require('@/assets/farmOS-logo.png')"></a>
         <ul class="list-unstyled text-small">
           <li class="mb-1"><a href="https://farmos.org/guide/">User Guide</a></li>
           <li class="mb-1"><a href="https://farmos.org/donate/">Donate</a></li>
@@ -64,6 +64,10 @@ export default {
 
 img.logo {
   height: 3em;
+}
+
+img.farmos-logo {
+  height: 1.5em;
 }
 
 footer h5 a{
