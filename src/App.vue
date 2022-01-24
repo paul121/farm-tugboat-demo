@@ -2,7 +2,8 @@
   <header>
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <img class="logo" alt="farmOS logo" src="./assets/farmOS-logo.png">
+        <img class="logo" alt="farmOS logo" :src="require('@/assets/icon/ROLLING_HILLS-AnneDigges.svg')">
+        &nbsp; farmOS/Demo
       </a>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <router-link to="/" class="nav-link">Demo</router-link>
@@ -62,7 +63,7 @@ export default {
 }
 
 img.logo {
-  height: 30px;
+  height: 3em;
 }
 
 footer h5 a{
