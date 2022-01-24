@@ -20,8 +20,9 @@
   <footer class="pt-5 my-md-5 pt-md-5 border-top">
     <div class="row"> 
       <div class="col-12 col-md">
-        <h6><a href="https://rootedsolutions.io">Provided by <img class="rs-logo" alt="roooted solutions logo" :src="require('@/assets/rs_logo.png')"></a></h6>
-        <h6><a href="https://tugboat.qa">Powered by Tugboat</a></h6>
+        <h6>Provided by <a href="https://rootedsolutions.io"><img class="rs-logo" alt="roooted solutions logo" :src="require('@/assets/rs_logo.png')"></a></h6>
+        <h6>Powered by <a href="https://tugboat.qa">Tugboat</a></h6>
+        <h6>Icons by <a href="https://www.thelexicon.org/foodicons/">The Foodicons Collection</a></h6>
       </div> 
       <div class="col-6 col-md">
         <a href="https://farmos.org"><img class="farmos-logo" alt="farmos-logo" :src="require('@/assets/farmOS-logo.png')"></a>
