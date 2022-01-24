@@ -11,6 +11,7 @@ const basePreviews = [
       "Mapbox maps",
       "Multiple languages",
     ],
+    icon: 'LANDUSEPLANNING-SavannahChappus.svg',
   },
   {
     id: null,
@@ -25,6 +26,7 @@ const basePreviews = [
       "Transplanting logs",
       "Harvest logs",
     ],
+    icon: 'CROPROTATION.svg',
   },
   {
     id: null,
@@ -39,6 +41,7 @@ const basePreviews = [
       "Movement logs",
       "Harvest logs",
     ],
+    icon: 'MANAGEDROTATIONALGRAZING.svg',
   },
 ]
 

@@ -22,6 +22,7 @@
                   {{ feature }}
                 </li>
               </ul>
+              <img alt="demo-icon" :src="require(`@/assets/icon/${option.icon}`)">
             </div> 
             <button
               @click="$router.push({ name: 'demo-alias', params: { alias: option.alias}})"
@@ -55,7 +56,10 @@ export default {
 }
 .features {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+}
+.features img {
+  height: 5em;
 }
 .features ul {
   min-height: 10em;
