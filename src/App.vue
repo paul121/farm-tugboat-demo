@@ -18,10 +18,11 @@
   </main>
 
   <footer class="pt-5 my-md-5 pt-md-5 border-top">
-    <div class="row">
+    <div class="row"> 
       <div class="col-12 col-md">
-        <small class="d-block mb-3 text-muted">logos</small>
-      </div>
+        <h6><a href="https://rootedsolutions.io">Provided by <img class="rs-logo" alt="roooted solutions logo" :src="require('@/assets/rs_logo.png')"></a></h6>
+        <h6><a href="https://tugboat.qa">Powered by Tugboat</a></h6>
+      </div> 
       <div class="col-6 col-md">
         <a href="https://farmos.org"><img class="farmos-logo" alt="farmos-logo" :src="require('@/assets/farmOS-logo.png')"></a>
         <ul class="list-unstyled text-small">
@@ -66,6 +67,10 @@ img.logo {
   height: 3em;
 }
 
+img.rs-logo {
+  height: 3em;
+}
+
 img.farmos-logo {
   height: 1.5em;
   margin-bottom: .5em;
@@ -73,6 +78,11 @@ img.farmos-logo {
 
 footer h5 a{
   color: var(--bs-body-color);
+}
+
+footer h6 {
+  margin-bottom: 1em;
+  font-weight: normal;
 }
 
 footer a {
