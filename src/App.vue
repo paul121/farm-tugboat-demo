@@ -7,7 +7,6 @@
       </a>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
         <a href="https://farmos.org" role="link" aria-label="farmOS.org" class="nav-link">farmOS.org</a>
-        <router-link to="/about" class="nav-link">About this service</router-link>
       </nav>
     </div>
   </header>
@@ -35,7 +34,6 @@
       <div class="col-6 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
-          <li class="mb-1"><router-link to="/about" class="footer-link">About this service</router-link></li>
           <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://github.com/paul121/farm-tugboat-demo/issues/new">Report an issue</a></li>
           <li class="mb-1"><a class="link-secondary text-decoration-none" href="https://github.com/paul121/farm-tugboat-demo">Source code</a></li>
         </ul>
