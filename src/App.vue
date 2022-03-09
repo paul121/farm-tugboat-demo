@@ -2,7 +2,7 @@
   <header>
     <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
       <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-        <img class="logo" alt="farmOS logo" :src="require('@/assets/icon/ROLLING_HILLS-AnneDigges.svg')">
+        <img class="site-logo" alt="farmOS logo" :src="require('@/assets/icon/ROLLING_HILLS-AnneDigges.svg')">
         &nbsp; farmOS/Demo
       </a>
       <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
@@ -59,6 +59,10 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+img.site-logo {
+  height: 3em;
 }
 
 img.rs-logo {
