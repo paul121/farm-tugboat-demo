@@ -18,8 +18,8 @@
   <footer class="pt-5 my-md-5 pt-md-5 border-top">
     <div class="row"> 
       <div class="col-12 col-md">
-        <h6>Provided by <a href="https://rootedsolutions.io"><img class="logo" alt="roooted solutions logo" :src="require('@/assets/rs_logo.png')"></a></h6>
-        <h6>Powered by <a href="https://tugboat.qa"><img class="logo" alt="Tugboat logo" :src="require('@/assets/tugboat_logo.svg')"></a></h6>
+        <h6>Provided by <a href="https://rootedsolutions.io"><img class="rs-logo" alt="roooted solutions logo" :src="require('@/assets/rs_logo.png')"></a></h6>
+        <h6>Powered by <a href="https://tugboat.qa"><img class="tugboat-logo" alt="Tugboat logo" :src="require('@/assets/tugboat_logo.svg')"></a></h6>
         <h6>Icons by <a href="https://www.thelexicon.org/foodicons/">The Foodicons Collection</a></h6>
       </div> 
       <div class="col-6 col-md">
@@ -61,13 +61,17 @@ export default {
   color: #2c3e50;
 }
 
-img.logo {
+img.rs-logo {
   height: 3em;
 }
 
+img.tugboat-logo {
+  height: 2em;
+}
+
 img.farmos-logo {
-  height: 1.5em;
-  margin-bottom: .5em;
+  height: 2em;
+  margin-bottom: 1em;
 }
 
 footer h5 a{
