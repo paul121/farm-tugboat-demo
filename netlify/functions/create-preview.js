@@ -38,7 +38,7 @@ exports.handler = async function(event, context) {
 
     // Set expiration.
     let expires = new Date();
-    expires.setDate(expires.getDate() + 1);
+    expires.setHours(expires.getHours() + 12);
 
     // Development settings.
     if (process.env.CONTEXT === 'dev') {

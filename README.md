@@ -7,6 +7,10 @@
 A simple vue app that builds ephemeral demos of [farmOS](https://farmos.org) hosted on
 [Tugboat](https://www.tugboat.qa/) using [Netlify Functions](https://www.netlify.com/products/functions/).
 
+Right now demos will expire after *12 hours*. This is due to limitations of the
+free Tugboat plan; sponsorship of this project would increase the storage
+capacity and allow for longer demo times.
+
 ## Development
 
 This project has 3 main components:

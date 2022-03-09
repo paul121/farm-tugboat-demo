@@ -83,7 +83,7 @@
         </div>
 
         <div>
-          <h5>This farmOS demo will persist for <b>1 day</b>.</h5>
+          <h5>This farmOS demo will persist for <b>12 hours</b>.</h5>
           <h5>Note that sending emails from the demo is not allowed, so <b>password recovery will not work</b>. If you change your user password, be sure to remember it.</h5>
         </div>
       </div> 
