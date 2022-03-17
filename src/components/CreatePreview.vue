@@ -134,7 +134,7 @@ export default {
           percent = 10;
           if (this.buildStart) {
             let seconds = Math.round((Date.now() - this.buildStart)/1000);
-            percent = seconds < 40 ? percent + seconds * 2 : 80;
+            percent = seconds < 60 ? percent + seconds * 2 : 80;
           }
           break;
         case 'pending':
