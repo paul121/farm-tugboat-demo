@@ -70,24 +70,16 @@ exports.handler = async function(event, context) {
     .then(response => response.json())
     .then(data => {
         if (data.code == 1022) {
-            const error = {
-                'code': 1,
-                'message': 'Demo limit has been reached. Please try again later.',
-            };
             return {
                 statusCode: 400,
-                body: JSON.stringify(error),
+                body: 'Demo limit has been reached. Please try again later.',
             };
         }
         if (!data.hasOwnProperty("preview")) {
             console.log(data);
-            const error = {
-                'code': 0,
-                'message': 'Demo not created. Please try again.',
-            };
             return {
                 statusCode: 400,
-                body: JSON.stringify(error),
+                body: 'Demo not created. Please try again.',
             };
         }
         return {
@@ -98,7 +90,7 @@ exports.handler = async function(event, context) {
         console.log(error);
         return {
             statusCode: 400,
-            body: JSON.stringify({message: error}),
+            body: error,
         };
     });
 }

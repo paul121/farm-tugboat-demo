@@ -191,7 +191,7 @@ export default {
       })
       .then(function(response) {
         if (!response.ok) {
-          return response.json().then(json => { throw json; });
+          return response.text().then(err => { throw err; });
         }
         return response;
       })
@@ -238,7 +238,7 @@ export default {
             if (response.status >= 500 && count < 4) {
               return fetchData(previewId, count + 1);
             }
-            return response.json().then(json => { throw json; });
+            return response.text().then(err => { throw err; });
           }
           return response;
         });
@@ -263,7 +263,7 @@ export default {
             if (response.status >= 500 && count < 4) {
               return fetchData(previewId, count + 1);
             }
-            return response.json().then(json => { throw json; });
+            return response.text().then(err => { throw err; });
           }
           return response;
         }); 

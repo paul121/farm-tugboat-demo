@@ -8,7 +8,7 @@ exports.handler = async function(event, context) {
     if (!body.previewId) {
         return {
             statusCode: 404,
-            error: 'No preview ID provided.',
+            body: 'No preview ID provided.',
         }
     }
 
@@ -28,7 +28,7 @@ exports.handler = async function(event, context) {
     }).catch(error => {
         return {
             statusCode: 400,
-            body: JSON.stringify({message: error}),
+            body: error,
         };
     });
 }

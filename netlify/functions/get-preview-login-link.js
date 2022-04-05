@@ -34,7 +34,7 @@ exports.handler = async function(event, context) {
                 }
                 return {
                     statusCode: 400,
-                    body: JSON.stringify({message: 'No login link found. Please retry.'}),
+                    body: 'Error creating demo. Please try again.',
                 }
             } 
 
@@ -47,7 +47,7 @@ exports.handler = async function(event, context) {
         }).catch(error => {
             return {
                 statusCode: 400,
-                body: JSON.stringify({message: error}),
+                body: error,
             };
         });
     }
