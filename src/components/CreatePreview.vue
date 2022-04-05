@@ -4,7 +4,7 @@
       <div class="alert alert-danger" role="alert" v-if="errorMessage">
           Error creating demo: {{ errorMessage }}
       </div>
-      <div id="preview-form" v-if="!submitted">
+      <div id="preview-form" v-if="!submitted && !errorMessage">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title" v-if="selectedPreview.label">Configure your {{ selectedPreview.label }} demo:</h5>
@@ -48,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div id="preview-building-wrapper" v-if="submitted && !previewLoginLink">
+      <div id="preview-building-wrapper" v-if="submitted && !previewLoginLink && !errorMessage">
         <h3>{{ this.previewName }}</h3>
         <h4> 
           <span v-if="previewInfo.state != 'ready'">Status: {{ this.previewInfo.state }}...</span>
@@ -65,7 +65,7 @@
           />
         </div>
       </div>
-      <div id="preview-login-wrapper" v-if="previewLoginLink">
+      <div id="preview-login-wrapper" v-if="previewLoginLink && !errorMessage">
         <h3>{{ this.previewName }}</h3>
         <div>
           <h4>Your demo of farmOS is ready!</h4>
