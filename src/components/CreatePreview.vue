@@ -211,7 +211,7 @@ export default {
       .catch(error => this.setError(error));
     },
     async updatePreviewUntilReady() {
-      await this.updatePreviewInfo();
+      this.previewInfo = await this.fetchPreviewInfo(this.previewId);
 
       // Set the build start time once the preview is in the building state.
       if (!this.buildStart && this.previewInfo.state == 'building') {
@@ -224,50 +224,53 @@ export default {
         await this.updatePreviewUntilReady();
       }
     },
-    async updatePreviewInfo() {
-      this.previewInfo = await this.fetchPreviewInfo(this.previewId);
-    },
     fetchPreviewInfo(previewId) {
-      const payload = {previewId};
-      return fetch ('/.netlify/functions/get-preview', {
+      const fetchData = (previewId, count = 0) => fetch('/.netlify/functions/get-preview', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({previewId}),
       })
-      .then(function(response) {
-        if (!response.ok) {
-          return response.json().then(json => { throw json; });
-        }
-        return response;
-      })
-      .then(response => response.json())
-      .catch(error => this.setError(error));
+        .then(function(response) {
+          if (!response.ok) {
+            if (response.status >= 500 && count < 4) {
+              return fetchData(previewId, count + 1);
+            }
+            return response.json().then(json => { throw json; });
+          }
+          return response;
+        });
+      return fetchData(previewId)
+        .then(response => response.json())
+        .catch(error => this.setError(error));
     },
     async updatePreviewLoginLink() {
       this.previewLoginLink = await this.fetchPreviewLoginLink(this.previewId);
     },
     fetchPreviewLoginLink(previewId) {
-      const payload = {previewId};
-      return fetch ('/.netlify/functions/get-preview-login-link', {
+      const fetchData = (previewId, count = 0) => fetch ('/.netlify/functions/get-preview-login-link', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({previewId}),
       })
-      .then(function(response) {
-        if (!response.ok) {
-          return response.json().then(json => { throw json; });
-        }
-        return response;
-      })
-      .then(response => response.json())
-      .then(data => data.loginLink)
-      .catch(error => this.setError(error));
+        .then(function(response) {
+          if (!response.ok) {
+            if (response.status >= 500 && count < 4) {
+              return fetchData(previewId, count + 1);
+            }
+            return response.json().then(json => { throw json; });
+          }
+          return response;
+        }); 
+      return fetchData(previewId)
+        .then(response => response.json())
+        .then(data => data.loginLink)
+        .catch(error => this.setError(error));
     },
     generateName() {
       const chance = new Chance();
