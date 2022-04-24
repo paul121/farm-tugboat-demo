@@ -25,6 +25,9 @@ services:
         
         # Drush site-install to a sqlite file.
         drush site:install --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=$ADMIN_PASSWORD farm farm.modules='all' --yes
+        
+        # Additional farmOS modules.
+        drush en farm_quick_planting --yes
 
         # Configure mapbox.
         drush en farm_map_mapbox --yes
