@@ -59,7 +59,7 @@ exports.handler = async function(event, context) {
     }
 
     // Create the preview.
-    return fetch('https://api.tugboat.qa/v3/previews', {
+    return fetch('https://api.tugboatqa.com/v3/previews', {
         method: 'POST',
         headers: {
             'Authorization': `Bearer ${apiKey}`,

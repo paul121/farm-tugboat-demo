@@ -13,7 +13,7 @@ exports.handler = async function(event, context) {
     }
 
     // Fetch preview info.
-    return fetch(`https://api.tugboat.qa/v3/previews/${body.previewId}`, {
+    return fetch(`https://api.tugboatqa.com/v3/previews/${body.previewId}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${apiKey}`,
