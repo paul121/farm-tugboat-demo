@@ -28,7 +28,7 @@ exports.handler = async function(event, context) {
     }).catch(error => {
         return {
             statusCode: 400,
-            body: error,
+            body: error.message,
         };
     });
 }
