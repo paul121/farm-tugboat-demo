@@ -45,6 +45,9 @@
 <script>
 export default {
   name: 'App',
+  created() {
+    document.title = "Demo farmOS";
+  }
 }
 </script>
 
