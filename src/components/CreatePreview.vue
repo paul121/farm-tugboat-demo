@@ -260,10 +260,12 @@ export default {
       })
         .then(function(response) {
           if (!response.ok) {
-            if (response.status >= 500 && count < 4) {
+            if (response.status >= 400 && count < 4) {
               return fetchData(previewId, count + 1);
             }
-            return response.text().then(err => { throw err; });
+            else {
+              throw 'Error retrieving demo link from the Tugboat API. Please try again.';
+            }
           }
           return response;
         }); 

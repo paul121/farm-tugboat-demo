@@ -30,11 +30,10 @@ exports.handler = async function(event, context) {
                 if (retry) {
                     return new Promise(resolve => setTimeout(resolve, 2000))
                         .then(getLogs(false));
-                    //return getLogs(false);
                 }
                 return {
                     statusCode: 400,
-                    body: 'Error creating demo. Please try again.',
+                    body: 'Error retrieving demo link from the Tugboat API. Please try again.',
                 }
             } 
 
