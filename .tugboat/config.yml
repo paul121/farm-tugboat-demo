@@ -10,7 +10,7 @@ services:
 
         # Additional composer dependencies.
         cd /opt/drupal
-        composer require drupal/role_delegation drupal/userprotect -W --no-install
+        composer require drupal/role_delegation drupal/userprotect drupal/farm_nrcs -W --no-install
         composer install --no-cache --no-interaction
       
       # Commands that import files, databases, or other assets.
@@ -27,7 +27,7 @@ services:
         drush site:install --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=$ADMIN_PASSWORD farm farm.modules='all' --yes
         
         # Additional farmOS modules.
-        drush en farm_quick_planting --yes
+        drush en farm_nrcs farm_quick_planting --yes
 
         # Configure mapbox.
         drush en farm_map_mapbox --yes
