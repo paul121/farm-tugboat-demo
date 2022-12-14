@@ -1,6 +1,6 @@
 services:
   php:
-    image: farmos/farmos:2.0.0-beta7
+    image: farmos/farmos:2.0.0-beta8.1
     default: true
     commands:
       
@@ -50,7 +50,7 @@ services:
         # TODO: Add --autocreate-language flag for drush 11.
         for locale in de es it nl
         do
-          curl "https://ftp.drupal.org/files/translations/all/farm/farm-2.0.0-beta2.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
+          curl "https://ftp.drupal.org/files/translations/all/farm/farm-2.0.0-beta7.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
           drush locale:import $locale /opt/drupal/web/sites/default/files/translations/farm-$locale.po
         done
 
