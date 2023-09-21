@@ -47,7 +47,6 @@ services:
         chown -R www-data:www-data /opt/drupal/keys
 
         # Download and import farmOS translations.
-        # TODO: Add --autocreate-language flag for drush 11.
         for locale in de es it nl
         do
           curl "https://ftp.drupal.org/files/translations/all/farm/farm-2.1.3.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
