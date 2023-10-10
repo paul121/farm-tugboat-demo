@@ -1,6 +1,6 @@
 services:
   php:
-    image: farmos/farmos:2.1.3
+    image: farmos/farmos:2.2.1
     default: true
     commands:
       
@@ -49,7 +49,7 @@ services:
         # Download and import farmOS translations.
         for locale in de es it nl
         do
-          curl "https://ftp.drupal.org/files/translations/all/farm/farm-2.1.3.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
+          curl "https://ftp.drupal.org/files/translations/all/farm/farm-2.2.1.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
           drush locale:import --autocreate-language $locale /opt/drupal/web/sites/default/files/translations/farm-$locale.po
         done
 
