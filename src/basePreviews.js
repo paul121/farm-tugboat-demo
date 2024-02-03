@@ -2,13 +2,14 @@ const basePreviews = [
   {
     id: '626563e6ef17c6f56986697e',
     enabled: true,
-    alias: '2.x',
-    label: 'farmOS 2.0',
+    alias: '3.x',
+    label: 'farmOS v3',
     description: 'Try a fresh installation of farmOS. Demo includes:',
     features: [
-      "Latest farmOS version",
-      "All core modules",
+      "Quick forms",
       "Mapbox maps",
+      "API access",
+      "Community modules",
       "Multiple languages",
     ],
     icon: 'LANDUSEPLANNING-SavannahChappus.svg',
