@@ -5,7 +5,7 @@ dependencies:
     - consumers
     - simple_oauth
 id: demo_admin
-label: 'Demo admin'
+label: 'Demo admin (advanced API permissions)'
 weight: 2
 is_admin: null
 permissions:
@@ -21,3 +21,7 @@ permissions:
   - 'update own simple_oauth entities'
   - 'view own consumer entities'
   - 'view own simple_oauth entities'
+third_party_settings:
+  farm_role:
+    access:
+      config: true
