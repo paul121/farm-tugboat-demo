@@ -69,7 +69,7 @@ services:
         if [ $TUGBOAT_BASE_PREVIEW ]; then
 
           # Create test users with manager, worker and viewer roles.
-          drush user-create manager --password manager && drush user-add-role farm_manager manager && drush user-add-role farm_account_admin && drush user-add-role demo_admin manager
+          drush user-create manager --password manager && drush user-add-role farm_manager manager && drush user-add-role farm_account_admin manager && drush user-add-role demo_admin manager
           drush user-create worker && drush user-add-role farm_worker worker
           drush user-create viewer && drush user-add-role farm_viewer viewer
 
