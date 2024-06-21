@@ -10,7 +10,7 @@ services:
 
         # Additional composer dependencies.
         cd /opt/drupal
-        composer require drupal/farm_nrcs drupal/farm_calendar -W --no-install
+        composer require drupal/farm_nrcs drupal/farm_calendar drupal/farm_organic drupal/farm_template -W --no-install
         composer install --no-cache --no-interaction
       
       # Commands that import files, databases, or other assets.
