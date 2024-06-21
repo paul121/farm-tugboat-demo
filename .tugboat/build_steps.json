@@ -1,7 +1,7 @@
 {
   "services": {
     "php": {
-      "image": "farmos/farmos:3.2.2",
+      "image": "farmos/farmos:3.1.0",
       "default": true,
       "commands": {
         "build": [
