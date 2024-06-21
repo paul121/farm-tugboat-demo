@@ -8,6 +8,9 @@ services:
       init: |
         set -eux
 
+        # Ensure sqlite3 is installed.
+        apt-get update && apt-get install sqlite3
+
         # Additional composer dependencies.
         cd /opt/drupal
         composer require drupal/farm_nrcs drupal/farm_calendar drupal/farm_organic drupal/farm_template -W --no-install
