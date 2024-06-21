@@ -1,6 +1,6 @@
 const basePreviews = [
   {
-    id: '626563e6ef17c6f56986697e',
+    id: '6675795f82c542d346801d2e',
     enabled: true,
     alias: '3.x',
     label: 'farmOS v3',
