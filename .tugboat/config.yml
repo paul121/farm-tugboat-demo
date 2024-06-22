@@ -37,7 +37,7 @@ services:
         drush config:set farm_map_mapbox.settings api_key $MAPBOX_API_KEY --yes
 
         # Configure demo admin role.
-        #drush config:import --partial --source $TUGBOAT_ROOT/drupal/config -y
+        drush config:import --partial --source $TUGBOAT_ROOT/drupal/config -y
 
         # Update ownership of files so www-data has access to db.
         chgrp -R www-data /opt/drupal/web/sites/default/files
@@ -50,7 +50,7 @@ services:
         # Download and import farmOS translations.
         for locale in de es it nl
         do
-          curl "https://ftp.drupal.org/files/translations/all/farm/farm-3.2.2.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --silent
+          curl "https://ftp.drupal.org/files/translations/all/farm/farm-3.2.2.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --create-dirs --silent
           drush locale:import --autocreate-language $locale /opt/drupal/web/sites/default/files/translations/farm-$locale.po
         done
 
