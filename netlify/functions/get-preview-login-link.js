@@ -28,6 +28,7 @@ exports.handler = async function(event, context) {
             // If no drush uli is found, retry, then bail if no logs are found.
             if (drushIndex < 0) {
                 if (retry) {
+                    console.log('retry')
                     return new Promise(resolve => setTimeout(resolve, 2000))
                         .then(getLogs(false));
                 }
