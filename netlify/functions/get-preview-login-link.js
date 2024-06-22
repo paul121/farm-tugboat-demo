@@ -13,7 +13,7 @@ exports.handler = async function(event, context) {
     }
 
     // Fetch the preview logs.
-    function getLogs(retry) {
+    async function getLogs(retry) {
         return fetch(`https://api.tugboatqa.com/v3/previews/${body.previewId}/log?limit=10`, {
             method: 'GET',
             headers: {
