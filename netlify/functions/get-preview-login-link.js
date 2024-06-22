@@ -14,7 +14,7 @@ exports.handler = async function(event, context) {
 
     // Fetch the preview logs.
     async function getLogs(retry) {
-        return fetch(`https://api.tugboatqa.com/v3/previews/${body.previewId}/log?limit=10`, {
+        return fetch(`https://api.tugboatqa.com/v3/previews/${body.previewId}/log?limit=100`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
