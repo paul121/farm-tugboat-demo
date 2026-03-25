@@ -1,6 +1,6 @@
 services:
   php:
-    image: farmos/farmos:3.3.3
+    image: farmos/farmos:4.0.0
     default: true
     commands:
       
@@ -13,7 +13,7 @@ services:
 
         # Additional composer dependencies.
         cd /opt/drupal
-        composer require drupal/farm_nrcs drupal/farm_calendar drupal/farm_organic drupal/farm_template -W --no-install
+        composer require drupal/farm_nrcs drupal/farm_calendar drupal/farm_organic -W --no-install
         composer install --no-cache --no-interaction
       
       # Commands that import files, databases, or other assets.
@@ -27,10 +27,10 @@ services:
         mkdir -p /opt/drupal/web/sites/default/files
         
         # Drush site-install to a sqlite file.
-        drush site:install --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=$ADMIN_PASSWORD farm farm.modules='default' --yes
+        drush site:install --db-url=sqlite://sites/default/files/db.sqlite --account-name=admin --account-pass=$ADMIN_PASSWORD --yes
         
         # Additional farmOS modules.
-        drush en farm_l10n farm_role_account_admin farm_quick_planting farm_quick_movement farm_quick_inventory farm_nrcs farm_calendar --yes
+        drush en farm_api_oauth farm_l10n farm_account_admin farm_manager farm_worker farm_viewer farm_quick_planting farm_quick_movement farm_quick_inventory farm_nrcs farm_calendar --yes
 
         # Configure mapbox.
         drush en farm_map_mapbox --yes
@@ -44,13 +44,13 @@ services:
         chmod 2775 /opt/drupal/web/sites/default/files
         chmod -R g+w /opt/drupal/web/sites/default/files
 
-        # Update ownership of keys directory.
-        chown -R www-data:www-data /opt/drupal/keys
+        # Create keys directory.
+        mkdir /opt/drupal/keys
 
         # Download and import farmOS translations.
         for locale in de es it nl
         do
-          curl "https://ftp.drupal.org/files/translations/all/farm/farm-3.3.3.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --create-dirs --silent
+          curl "https://ftp.drupal.org/files/translations/all/farm/farm-4.0.0.$locale.po" -o "/opt/drupal/web/sites/default/files/translations/farm-$locale.po" --create-dirs --silent
           drush locale:import --autocreate-language $locale /opt/drupal/web/sites/default/files/translations/farm-$locale.po
         done
 
